@@ -7,19 +7,29 @@ import {
   Platform,
 } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
+import MealDetails from "./MealDetails";
 
 const MealItem = ({
+  id,
   title,
   imageUrl,
   duration,
   complexity,
   affordability,
-  onPress,
 }) => {
+  const navigation = useNavigation();
+
+  const selectMealItemHandler = () => {
+    navigation.navigate("MealDetail", {
+      mealId: id,
+    });
+  };
+
   return (
     <View style={styles.mealItem}>
       <Pressable
-        onPress={onPress}
+        onPress={selectMealItemHandler}
         style={({ pressed }) => [pressed ? styles.buttonPressed : null]}
       >
         <View style={styles.innerContainer}>
@@ -28,11 +38,11 @@ const MealItem = ({
             <Text style={styles.title}>{title}</Text>
           </View>
         </View>
-        <View style={styles.details}>
-          <Text style={styles.detailItem}>{duration}</Text>
-          <Text style={styles.detailItem}>{complexity.toUpperCase()}</Text>
-          <Text style={styles.detailItem}>{affordability.toUpperCase()}</Text>
-        </View>
+        <MealDetails
+          duration={duration}
+          affordability={affordability}
+          complexity={complexity}
+        />
       </Pressable>
     </View>
   );
