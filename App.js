@@ -20,7 +20,13 @@ const DrawerNavigator = () => {
         contentStyle: { backgroundColor: "#75C2F6" },
       }}
     >
-      <Drawer.Screen name="Categories" component={CategoriesScreen} />
+      <Drawer.Screen
+        name="Categories"
+        component={CategoriesScreen}
+        options={{
+          title: "All Categories",
+        }}
+      />
       <Drawer.Screen name="Favorites" component={FavoritesScreen} />
     </Drawer.Navigator>
   );
@@ -46,7 +52,13 @@ export default function App() {
             }}
           />
           <Stack.Screen name="MealsOverview" component={MealsOverviewScreen} />
-          <Stack.Screen name="MealDetail" component={MealDetailScreen} />
+          <Stack.Screen
+            name="MealDetail"
+            component={MealDetailScreen}
+            options={{
+              title: "About the meal",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>
