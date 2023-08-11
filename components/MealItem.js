@@ -8,10 +8,18 @@ import {
 } from "react-native";
 import React from "react";
 
-const MealItem = ({ title, imageUrl, duration, complexity, affordability }) => {
+const MealItem = ({
+  title,
+  imageUrl,
+  duration,
+  complexity,
+  affordability,
+  onPress,
+}) => {
   return (
     <View style={styles.mealItem}>
       <Pressable
+        onPress={onPress}
         style={({ pressed }) => [pressed ? styles.buttonPressed : null]}
       >
         <View style={styles.innerContainer}>
