@@ -29,5 +29,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     justifyContent: "center",
     justifyContent: "space-evenly",
+    marginBottom: 10,
   },
 });

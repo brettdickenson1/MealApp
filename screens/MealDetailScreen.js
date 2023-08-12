@@ -19,13 +19,13 @@ import { addFavorite, removeFavorite } from "../STORE/redux/favoritesSlice";
 const MealDetailScreen = ({ route, navigation }) => {
   const favoriteMealsCtx = useContext(FavoritesContext);
 
-  const favoriteMeals = useSelector((state) => state.favoriteMeals.ids);
+  const favoriteMealsIds = useSelector((state) => state.favoriteMeals.ids);
   const dispatch = useDispatch();
 
   const mealId = route.params.mealId;
-  const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
-
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
+
+  const mealIsFavorite = favoriteMealsIds.includes(mealId);
 
   const headerButtonPress = () => {
     if (mealIsFavorite) {
@@ -40,7 +40,6 @@ const MealDetailScreen = ({ route, navigation }) => {
       headerRight: () => {
         return (
           <>
-            <Text>{JSON.stringify(mealId)}</Text>
             <IconButton
               icon={mealIsFavorite ? "star" : "star-outline"}
               color="white"
@@ -55,7 +54,6 @@ const MealDetailScreen = ({ route, navigation }) => {
   return (
     <ScrollView>
       <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
-      <Text>{JSON.stringify(favoriteMeals)}</Text>
       <Text style={styles.title}>{selectedMeal.title}</Text>
       <View style={styles.detailTextRow}>
         <MealDetails
@@ -82,7 +80,7 @@ export default MealDetailScreen;
 const styles = StyleSheet.create({
   image: {
     width: "100%",
-    height: 350,
+    height: 300,
   },
   title: {
     fontWeight: "bold",
@@ -100,5 +98,6 @@ const styles = StyleSheet.create({
   },
   listOuterContainer: {
     alignItems: "center",
+    marginBottom: 50,
   },
 });
