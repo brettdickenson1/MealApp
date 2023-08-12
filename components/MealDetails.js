@@ -1,5 +1,10 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
+import {
+  FontAwesome5,
+  MaterialIcons,
+  MaterialCommunityIcons,
+} from "@expo/vector-icons";
 
 const MealDetails = ({
   duration,
@@ -10,12 +15,17 @@ const MealDetails = ({
 }) => {
   return (
     <View style={[styles.details, style]}>
-      <Text style={[styles.detailItem, textStyle]}>{duration} +</Text>
       <Text style={[styles.detailItem, textStyle]}>
-        {complexity.toUpperCase()} +
+        {duration} <FontAwesome5 name="clock" size={14} color="black" />
+      </Text>
+
+      <Text style={[styles.detailItem, textStyle]}>
+        {complexity.toUpperCase()}{" "}
+        <MaterialCommunityIcons name="food-variant" size={16} color="black" />
       </Text>
       <Text style={[styles.detailItem, textStyle]}>
-        {affordability.toUpperCase()} +
+        {affordability.toUpperCase()}{" "}
+        <FontAwesome5 name="money-bill-alt" size={14} color="black" />
       </Text>
     </View>
   );
@@ -30,5 +40,9 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     justifyContent: "space-evenly",
     marginBottom: 10,
+    alignItems: "baseline",
+  },
+  iconOne: {
+    alignItems: "center",
   },
 });

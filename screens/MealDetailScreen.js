@@ -87,10 +87,10 @@ const styles = StyleSheet.create({
     fontSize: 24,
     margin: 8,
     textAlign: "center",
-    color: "white",
+    color: "black",
   },
   detailText: {
-    color: "white",
+    color: "black",
     fontSize: 16,
   },
   listContainer: {
