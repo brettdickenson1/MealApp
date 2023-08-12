@@ -6,27 +6,47 @@ import {
   ScrollView,
   Button,
 } from "react-native";
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, useContext } from "react";
 import { MEALS } from "../data/dummy-data";
 import MealDetails from "../components/MealDetails";
 import Subtitle from "../components/MealDetail/Subtitle";
 import List from "../components/MealDetail/List";
 import IconButton from "../components/IconButton";
+import { FavoritesContext } from "../STORE/context/favorites-context";
+import { useDispatch, useSelector } from "react-redux";
+import { addFavorite, removeFavorite } from "../STORE/redux/favoritesSlice";
 
 const MealDetailScreen = ({ route, navigation }) => {
+  const favoriteMealsCtx = useContext(FavoritesContext);
+
+  const favoriteMeals = useSelector((state) => state.favoriteMeals.ids);
+  const dispatch = useDispatch();
+
   const mealId = route.params.mealId;
+  const mealIsFavorite = favoriteMealsCtx.ids.includes(mealId);
 
   const selectedMeal = MEALS.find((meal) => meal.id === mealId);
 
   const headerButtonPress = () => {
-    console.log("pressed");
+    if (mealIsFavorite) {
+      dispatch(removeFavorite({ id: mealId }));
+    } else {
+      dispatch(addFavorite({ id: mealId }));
+    }
   };
 
   useLayoutEffect(() => {
     navigation.setOptions({
       headerRight: () => {
         return (
-          <IconButton icon="star" color="white" onPress={headerButtonPress} />
+          <>
+            <Text>{JSON.stringify(mealId)}</Text>
+            <IconButton
+              icon={mealIsFavorite ? "star" : "star-outline"}
+              color="white"
+              onPress={headerButtonPress}
+            />
+          </>
         );
       },
     });
@@ -35,6 +55,7 @@ const MealDetailScreen = ({ route, navigation }) => {
   return (
     <ScrollView>
       <Image style={styles.image} source={{ uri: selectedMeal.imageUrl }} />
+      <Text>{JSON.stringify(favoriteMeals)}</Text>
       <Text style={styles.title}>{selectedMeal.title}</Text>
       <View style={styles.detailTextRow}>
         <MealDetails
